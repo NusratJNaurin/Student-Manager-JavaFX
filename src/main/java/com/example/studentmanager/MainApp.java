@@ -25,65 +25,78 @@ import java.util.*;
 public class MainApp extends Application {
     private ArrayList<Student> students = new ArrayList<>();
     Font Header = Font.font("Poppins", FontWeight.BOLD, 30);
-    Font sectionHeader = Font.font("Arial",FontWeight.BOLD,25);
-    Font normal = Font.font("Arial",16);
-    Font special = Font.font("Poppins",15);
+    Font sectionHeader = Font.font("Arial", FontWeight.BOLD, 25);
+    Font normal = Font.font("Arial", 16);
+    Font special = Font.font("Poppins", 15);
     private TableView<Student> table;
 
 
-    public void studentsData(){
-        Student s1 = new Student("Ayesha Khan","Computer Science",3.6);
-        Student s2 = new Student("Sara Albuainain","Computer Science",3.2);
-        Student s3 = new Student("Fatima Khanam","Computer Engineering",4);
-        Student s4 = new Student("Afra Sayem","Mechatronics",3.8);
+    public void studentsData() {
+        Student s1 = new Student("Ayesha Khan", "Computer Science", 3.6);
+        Student s2 = new Student("Sara Albuainain", "Computer Science", 3.2);
+        Student s3 = new Student("Fatima Khanam", "Computer Engineering", 4);
+        Student s4 = new Student("Afra Sayem", "Mechatronics", 3.8);
         Collections.addAll(students, s1, s2, s3, s4);
     }
 
 
     public VBox createTop() {
         VBox title = new VBox(5);
-        Label windowTitle = new Label("Welcome to Student Manager!"); windowTitle.setFont(Header);
-        Label subTitle = new Label("Add/Remove students"); subTitle.setFont(special);
-        title.getChildren().addAll(windowTitle,subTitle);
+        Label windowTitle = new Label("Welcome to Student Manager!");
+        windowTitle.setFont(Header);
+        Label subTitle = new Label("Add/Remove students");
+        subTitle.setFont(special);
+        title.getChildren().addAll(windowTitle, subTitle);
         title.setAlignment(Pos.CENTER);
 
         return title;
     }
 
 
-    public VBox createCenter(){
+    public VBox createCenter() {
         VBox stdFunctions = new VBox(20);
 
-        Label std = new Label("Student Information:"); std.setFont(sectionHeader);
+        Label std = new Label("Student Information:");
+        std.setFont(sectionHeader);
 
         Label showMessage = new Label();
         showMessage.setTextFill(Color.RED);
 
-        Label name = new Label("Name: "); name.setFont(normal);
-        TextField enterName = new TextField(); enterName.setFont(normal);
-        Label cgpa = new Label("CGPA: "); cgpa.setFont(normal);
-        TextField enterGPA = new TextField(); enterGPA.setFont(normal);
-        Label dep = new Label("Department: "); dep.setFont(normal);
-        TextField enterDep = new TextField(); enterDep.setFont(normal);
+        Label name = new Label("Name: ");
+        name.setFont(normal);
+        TextField enterName = new TextField();
+        enterName.setFont(normal);
+        Label cgpa = new Label("CGPA: ");
+        cgpa.setFont(normal);
+        TextField enterGPA = new TextField();
+        enterGPA.setFont(normal);
+        Label dep = new Label("Department: ");
+        dep.setFont(normal);
+        TextField enterDep = new TextField();
+        enterDep.setFont(normal);
         TextField[] textFields = {enterName, enterGPA, enterDep};
 
         HBox stdInfo = new HBox(name, enterName, cgpa, enterGPA, dep, enterDep);
         stdInfo.setSpacing(14);
         stdInfo.setAlignment(Pos.CENTER);
 
-        enterName.setOnAction(e-> enterGPA.requestFocus());
-        enterGPA.setOnAction(e-> enterDep.requestFocus());
+        enterName.setOnAction(e -> enterGPA.requestFocus());
+        enterGPA.setOnAction(e -> enterDep.requestFocus());
 
-        Button addStd = new Button("Add Student"); addStd.setFont(special);
-        Button removeStd = new Button("Remove Student"); removeStd.setFont(special);
-        Button clear = new Button("Clear"); clear.setFont(special);
+        Button addStd = new Button("Add Student");
+        addStd.setFont(special);
+        Button removeStd = new Button("Remove Student");
+        removeStd.setFont(special);
+        Button clear = new Button("Clear");
+        clear.setFont(special);
 
-        addStd.setOnAction(e-> handleAddStudent(textFields, showMessage));
-        removeStd.setOnAction(e-> handleRemoveStudent(textFields, showMessage));
-        clear.setOnAction(e-> handleClear(textFields));
+        addStd.setOnAction(e -> handleAddStudent(textFields, showMessage));
+        removeStd.setOnAction(e -> handleRemoveStudent(textFields, showMessage));
+        clear.setOnAction(e -> handleClear(textFields));
 
         HBox funcButtons = new HBox(addStd, removeStd, clear);
-        funcButtons.setSpacing(15); funcButtons.setAlignment(Pos.CENTER);
+        funcButtons.setSpacing(15);
+        funcButtons.setAlignment(Pos.CENTER);
 
         stdFunctions.getChildren().addAll(std, stdInfo, funcButtons, showMessage);
         stdFunctions.setAlignment(Pos.CENTER);
@@ -130,9 +143,8 @@ public class MainApp extends Application {
         if (remStd != null) {
             table.getItems().remove(remStd);
             msg.setText(" ");
-        }
-        else if (!tx[0].getText().isEmpty()) {
-            for (Student s: students){
+        } else if (!tx[0].getText().isEmpty()) {
+            for (Student s : students) {
                 if (s.getName().equalsIgnoreCase(tx[0].getText()))
                     table.getItems().remove(s);
             }
@@ -144,18 +156,19 @@ public class MainApp extends Application {
     }
 
 
-    public void handleClear(TextField[] tx){
+    public void handleClear(TextField[] tx) {
         for (TextField texts : tx)
             texts.clear();
     }
 
 
-    public VBox createBottom(){
+    public VBox createBottom() {
         VBox container = new VBox(20);
         container.setAlignment(Pos.CENTER);
         container.setPadding(new Insets(20));
 
-        Label allStd = new Label("Students Data"); allStd.setFont(sectionHeader);
+        Label allStd = new Label("Students Data");
+        allStd.setFont(sectionHeader);
 
 
         table = new TableView<>();
@@ -176,7 +189,7 @@ public class MainApp extends Application {
         table.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14pt;");
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
-        container.getChildren().addAll(allStd,table);
+        container.getChildren().addAll(allStd, table);
         container.setAlignment(Pos.CENTER);
 
         return container;
@@ -203,7 +216,7 @@ public class MainApp extends Application {
             }
         });
 
-        Scene scene2 = new Scene(bp,900,700);
+        Scene scene2 = new Scene(bp, 900, 700);
         stage.setScene(scene2);
         stage.show();
     }
