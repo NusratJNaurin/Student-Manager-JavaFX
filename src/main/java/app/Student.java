@@ -1,4 +1,4 @@
-package com.example.studentmanager;
+package app;
 
 public class Student {
     private String name;
@@ -23,7 +23,7 @@ public class Student {
     }
 
     public String getId() {
-        return String.format("%s%d",name.substring(0,2),counter++);
+        return String.format("%s%d",name.substring(0,2).toLowerCase(),counter++);
     }
 
     public void setId(String id) {
